@@ -1,9 +1,9 @@
 import Agent from '@/components/Agent'
-import { getCurrentUSer } from '@/lib/actions/auth.actions'
+import { getCurrentUser } from '@/lib/actions/auth.actions'
 import React from 'react'
 
 const page = async () => {
-  const user = await getCurrentUSer()
+  const user = await getCurrentUser()
   return (
     <>
     <h3>Interview Generation</h3>
