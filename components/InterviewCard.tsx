@@ -1,17 +1,17 @@
 import React from 'react'
-
 import dayjs from'dayjs'
 import { getRandomInterviewCover } from '@/lib/utils'
 import Image from "next/image"
 import Link from 'next/link'
 import { Button } from './ui/button'
 import DisplayTechIcons from './DisplayTechIcons'
+import { getFeedbackByInterviewId } from '@/lib/actions/general.actions'
 
-function InterviewCard({id, userId, role, type, techstack, createdAt}: InterviewCardProps) {
-    const feedback = null as Feedback | null
+async  function InterviewCard({id, userId, role, type, techstack, createdAt}: InterviewCardProps) {
+    const feedback = id && userId  ? await getFeedbackByInterviewId ({interviewId : id, userId}) : null
     const normalizedType =  /mix/gi.test(type) ? 'Mixed'  : type
     const formattedDate = dayjs(feedback?.createdAt || createdAt || Date.now()).format('MMM D, YYYY') 
-     
+    console.log(id)     
 
   return (
     <div className='card-border w-[360px] max-sm:w-full  min-h-96'>

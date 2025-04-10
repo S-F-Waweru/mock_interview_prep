@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import InterviewCard from '@/components/InterviewCard'
 import { Button } from '@/components/ui/button'
 import { getCurrentUser } from '@/lib/actions/auth.actions'
-import {getInterviewByUserId, getLatestInterviews } from '@/lib/actions/general.actions'
+import {getInterviewsByUserId, getLatestInterviews } from '@/lib/actions/general.actions'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,11 +11,14 @@ import React from 'react'
 const page = async() => {
   const user = await getCurrentUser()
 
-  console.log(user?.id!, "this is the userd!!!!!!!!!")
+  console.log(user?.id, "this is the userd!!!!!!!!!")
+  
   const [userInterviews, latestInterviews] = await Promise.all([
-    await getInterviewByUserId(user?.id!),
+    await getInterviewsByUserId(user?.id!),
     await getLatestInterviews({userId : user?.id!})
   ])
+
+  console.log(latestInterviews)
 
   const hasPastInterviews = userInterviews?.length > 0 ;
   const hasUpcomingInterviews = latestInterviews?.length > 0;
