@@ -87,6 +87,7 @@ export async function getFeedbackByInterviewId(
   if (querySnapshot.empty) return null;
 
   const feedbackDoc = querySnapshot.docs[0];
+  console.log(feedbackDoc)
   return { id: feedbackDoc.id, ...feedbackDoc.data() } as Feedback;
 }
 
@@ -99,7 +100,7 @@ export async function getLatestInterviews(
     .collection("interviews")
     .orderBy("createdAt", "desc")
     .where("finalized", "==", true)
-    .where("userId", "!=", userId)
+    .where("userid", "!=", userId)
     .limit(limit)
     .get();
 
@@ -114,7 +115,7 @@ export async function getInterviewsByUserId(
 ): Promise<Interview[] | null> {
   const interviews = await db
     .collection("interviews")
-    .where("userId", "==", userId)
+    .where("userid", "==", userId)
     .orderBy("createdAt", "desc")
     .get();
 
